@@ -37,6 +37,7 @@ extension _HashNode {
   /// Instances of this class hold (tail-allocated) storage for individual
   /// nodes in a hash tree.
   @usableFromInline
+  @_fixed_layout
   internal final class Storage: _RawHashStorage {
     @usableFromInline
     internal typealias Element = (key: Key, value: Value)
@@ -44,6 +45,7 @@ extension _HashNode {
     @usableFromInline
     internal typealias UnsafeHandle = _HashNode<Key, Value>.UnsafeHandle
 
+    @inlinable
     deinit {
       UnsafeHandle.update(self) { handle in
         handle.children.deinitialize()
